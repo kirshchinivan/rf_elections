@@ -18,7 +18,7 @@ dash.register_page(
     name='Выборы в Госдуму'
 )
 
-connection = sqlite3.connect("elections.db")
+connection = sqlite3.connect("./elections.db")
 
 layout = html.Div([
     dcc.Link(html.Button("Назад"), href="/"),
