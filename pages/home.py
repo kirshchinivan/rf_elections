@@ -13,7 +13,7 @@ import pathlib
 
 dash.register_page(
     __name__,
-    path='/',
+    path='',
     title='Начало',
     name='Начало'
 )
