@@ -18,11 +18,11 @@ dash.register_page(
     name='Президентские выборы'
 )
 
-connection = sqlite3.connect("elections.db")
+connection = sqlite3.connect("./elections.db")
 
 
 layout = html.Div([
-    dcc.Link(html.Button("Назад"), href=""),
+    dcc.Link(html.Button("Назад"), href="/"),
     html.Div(children='Выберите регион'),
     dcc.Dropdown(pd.read_sql_query('SELECT region_name FROM region', connection)['region_name'],
                  'Вся Россия',
