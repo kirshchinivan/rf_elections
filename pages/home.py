@@ -1,16 +1,6 @@
-from dash import Dash, html, dash_table, dcc, callback, Output, Input
+from dash import html
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import pandas as pd
-import numpy as np
 import dash
-import json
-import sqlite3
-import plotly as plt
-import zipfile
-from urllib.request import urlopen
-import sys
-import pathlib
 
 dash.register_page(
     __name__,
