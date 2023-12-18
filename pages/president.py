@@ -41,7 +41,7 @@ layout = html.Div([
 
     dbc.Card(
         dbc.CardBody([
-            html.H1('Выборы в Госдуму'),
+            html.H1('Президентские выборы'),
             html.Hr(),
 
             dbc.Row([
