@@ -108,8 +108,7 @@ layout = html.Div([
                     html.H2('Предпочтения по регионам'),
                     html.Hr(),
                     draw_dropdown([dcc.Dropdown(
-                        [reg + " " for reg in
-                         pd.read_sql_query('SELECT region_name FROM region', connection)['region_name'].values],
+                        pd.read_sql_query('SELECT region_name FROM region', connection)['region_name'].values,
                         'Вся Россия ',
                         id='region_dropdown_2')])
                 ], width=6),
