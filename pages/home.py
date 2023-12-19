@@ -11,7 +11,7 @@ dash.register_page(
 
 layout = dbc.Container([
     html.H1('Выборы в России'),
-    html.H3('Артем Уткин, Кирщин Иван'),
+    html.H3('Кирщин Иван'),
     html.Hr(),
     dbc.Row(dbc.Button("Выборы президента", style={'fontSize': '24px'}, href="/president")),
     html.Br(),
