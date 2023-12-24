@@ -6,9 +6,9 @@ import sqlite3
 
 dash.register_page(
     __name__,
-    path='/parliament',
-    title='Выборы в Госдуму',
-    name='Выборы в Госдуму'
+    path="/parliament",
+    title="Выборы в Госдуму",
+    name="Выборы в Госдуму"
 )
 
 connection = sqlite3.connect("./elections.db")
@@ -37,134 +37,137 @@ def draw_dropdown(dropdown):
 
 
 layout = html.Div([
-    dbc.Button("Назад", style={'fontSize': '24px'}, href="/"),
+    dbc.Button("Назад", style={"fontSize": "24px"}, href="/"),
 
     dbc.Card(
         dbc.CardBody([
-            html.H1('Выборы в Госдуму'),
+            html.H1("Выборы в Госдуму"),
             html.Hr(),
 
             dbc.Row([
                 dbc.Col([
                     draw_dropdown([
-                        html.Div(children='Год'),
+                        html.Div(children="Год"),
                         dcc.Dropdown(
                             [2003, 2007, 2011],
                             2011,
-                            id='year_dropdown')
+                            id="year_dropdown")
                     ])
-                ], width=3),
-
-                dbc.Col([
-                    draw_dropdown([html.Div(children='Регион'),
-                                   dcc.Dropdown(
-                                      pd.read_sql_query('SELECT region_name FROM region', connection)['region_name'],
-                                      'Вся Россия',
-                                      id='region_dropdown')])
                 ], width=3),
 
                 dbc.Col([
                     draw_dropdown([
-                        html.Div(children='Отображать регионы по'),
+                        html.Div(children="Регион"),
                         dcc.Dropdown(
-                            ['Явка'] + [f'Голоса за {cand}' for cand in
-                                        pd.read_sql_query('SELECT candidate_name FROM gd_candidate', connection)[
-                                            'candidate_name']],
-                            'Явка',
-                            id='map_dropdown')
+                            pd.read_sql_query("SELECT region_name FROM region", connection)["region_name"],
+                            "Вся Россия",
+                            id="region_dropdown")
+                    ])
+                ], width=3),
+
+                dbc.Col([
+                    draw_dropdown([
+                        html.Div(children="Отображать регионы по"),
+                        dcc.Dropdown(
+                            ["Явка"] + [f"Голоса за {cand}" for cand in
+                                        pd.read_sql_query("SELECT candidate_name FROM gd_candidate", connection)
+                                        ["candidate_name"]],
+                            "Явка",
+                            id="map_dropdown")
                     ])
                 ], width=6)
-            ], align='center'),
+            ], align="center"),
 
             html.Br(),
 
             dbc.Row([
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='results')),
-                    draw_figure(dcc.Graph(figure={}, id='turnout'))
+                    draw_figure(dcc.Graph(figure={}, id="results")),
+                    draw_figure(dcc.Graph(figure={}, id="turnout"))
                 ], width=4),
 
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='map')),
+                    draw_figure(dcc.Graph(figure={}, id="map")),
                     dbc.Button("Вся Россия", id="reset", className="me-2", n_clicks=0)
                 ], width=8),
-            ], align='center'),
+            ], align="center"),
 
             html.Br(),
 
             dbc.Row([
                 dbc.Col([
-                    html.H2('Явка по регионам'),
+                    html.H2("Явка по регионам"),
                     html.Hr(),
                     draw_dropdown([
                         dcc.Dropdown(
                             [2003, 2007, 2011],
                             2011,
-                            id='year_dropdown_2')
+                            id="year_dropdown_2")
                     ])
                 ], width=6),
 
                 dbc.Col([
-                    html.H2('Предпочтения по регионам'),
+                    html.H2("Предпочтения по регионам"),
                     html.Hr(),
                     draw_dropdown([dcc.Dropdown(
                         [reg + " " for reg in
-                         pd.read_sql_query('SELECT region_name FROM region', connection)['region_name'].values],
-                        'Вся Россия ',
-                        id='region_dropdown_2')])
+                         pd.read_sql_query("SELECT region_name FROM region", connection)
+                         ["region_name"].values],
+                        "Вся Россия ",
+                        id="region_dropdown_2")])
                 ], width=6),
-            ], align='center'),
+            ], align="center"),
 
             html.Br(),
 
             dbc.Row([
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='turnout_best')),
-                    draw_figure(dcc.Graph(figure={}, id='turnout_worst'))
+                    draw_figure(dcc.Graph(figure={}, id="turnout_best")),
+                    draw_figure(dcc.Graph(figure={}, id="turnout_worst"))
                 ], width=6),
 
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='cand_best')),
-                    draw_figure(dcc.Graph(figure={}, id='cand_worst'))
+                    draw_figure(dcc.Graph(figure={}, id="cand_best")),
+                    draw_figure(dcc.Graph(figure={}, id="cand_worst"))
                 ], width=6),
-            ], align='center'),
+            ], align="center"),
 
             html.Br(),
 
             dbc.Row([
                 dbc.Col([
-                    html.H2('Показатели по кандидатам'),
+                    html.H2("Показатели по кандидатам"),
                     html.Hr(),
                     draw_dropdown([
                         dcc.Dropdown(
-                            pd.read_sql_query('SELECT candidate_name FROM gd_candidate', connection)['candidate_name'],
-                            'Единая Россия',
-                            id='candidate_dropdown')
+                            pd.read_sql_query("SELECT candidate_name FROM gd_candidate", connection)["candidate_name"],
+                            "Единая Россия",
+                            id="candidate_dropdown")
                     ])
                 ], width=12)
-            ], align='center'),
+            ], align="center"),
 
             html.Br(),
 
             dbc.Row([
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='cand_top5'))
+                    draw_figure(dcc.Graph(figure={}, id="cand_top5"))
                 ], width=6),
 
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='cand_worst5'))
+                    draw_figure(dcc.Graph(figure={}, id="cand_worst5"))
                 ], width=6)
-            ], align='center'),
+            ], align="center"),
 
             dbc.Row([
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='cand_top5_reg'))
+                    draw_figure(dcc.Graph(figure={}, id="cand_top5_reg"))
                 ], width=6),
 
                 dbc.Col([
-                    draw_figure(dcc.Graph(figure={}, id='cand_worst5_reg'))
+                    draw_figure(dcc.Graph(figure={}, id="cand_worst5_reg"))
                 ], width=6),
-            ], align='center')
-        ]), color='dark'
+            ], align="center")
+        ]), color="dark"
     )
 ])
