@@ -3,4 +3,6 @@ pandas
 plotly
 dash
 dash_bootstrap_components
+requests
+beautifulsoup4
 gunicorn
